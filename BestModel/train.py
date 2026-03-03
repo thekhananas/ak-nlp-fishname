@@ -28,8 +28,8 @@ except ImportError:
 
 # ── Constants ─────────────────────────────────────────────────────────────────
 SEED           = 42
-MODEL_NAME     = "microsoft/deberta-v3-base"
-MAX_LENGTH     = 128          # covers ~95 % of corpus at default tokenisation
+MODEL_NAME     = "roberta-large"
+MAX_LENGTH     = 128          # covers ~95 % of corpus at default tokenisation (# DeBERTa v2/v3 disentangled attn has cuBLAS stride bug on this GPU)
 BATCH_SIZE     = 32
 LEARNING_RATE  = 2e-5
 EPOCHS         = 10
@@ -124,7 +124,7 @@ def train_epoch(
         batch  = {k: v.to(device) for k, v in batch.items()}
 
         if scaler is not None:                          # mixed precision
-            with torch.cuda.amp.autocast():
+            with torch.amp.autocast("cuda"):
                 logits = model(**batch).logits.squeeze(-1)
                 loss   = loss_fn(logits, labels)
             scaler.scale(loss).backward()
@@ -268,7 +268,8 @@ def main() -> None:
     # ── Model, optimiser, loss ─────────────────────────────────────────────
     print(f"Loading model...")
     model = AutoModelForSequenceClassification.from_pretrained(
-        MODEL_NAME, num_labels=1          # single logit → sigmoid
+        MODEL_NAME, num_labels=1,           # single logit → sigmoid
+        torch_dtype=torch.float32,          # DeBERTa-v3 disentangled attention is unstable with fp16 on some GPUs
     ).to(device)
 
     optimizer = torch.optim.AdamW(
@@ -287,9 +288,8 @@ def main() -> None:
     pos_weight = torch.tensor([args.pos_weight], device=device)
     loss_fn    = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
 
-    # Automatic mixed precision (GPU only)
-    scaler = torch.cuda.amp.GradScaler() if device.type == "cuda" else None
-
+    # AMP disabled: DeBERTa-v3 disentangled attention is unstable with fp16.
+    scaler = torch.amp.GradScaler("cuda") if device.type == "cuda" else None
     
     best_f1, best_tau   = 0.0, 0.5
     patience_counter    = 0
