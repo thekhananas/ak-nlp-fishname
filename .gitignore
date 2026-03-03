@@ -1,0 +1,29 @@
+# ── LaTeX build artifacts ──────────
+report.aux
+report.log
+report.out
+report.toc
+report.fls
+report.fdb_latexmk
+*.synctex.gz
+
+# ── Model checkpoints (large binary files, not for git) ──────
+BestModel/checkpoints/
+
+# ── Python ─────────
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# ── Virtual environments ─────
+venv/
+.venv/
+env/
+.env/
+
+
+2020.coling-main.518.pdf
+70016_1_spec.pdf
+
+.DS_Store

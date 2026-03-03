@@ -1,0 +1,7 @@
+torch>=2.1.0
+transformers>=4.38.0
+sentencepiece>=0.1.99   # required by DeBERTa-v3 tokeniser
+protobuf>=3.20.0        # required by sentencepiece
+scikit-learn>=1.3.0
+numpy>=1.24.0
+tqdm>=4.65.0
