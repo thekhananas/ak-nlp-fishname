@@ -28,8 +28,12 @@ DEFAULT_TAU = 0.5
 def load_tsv(path: str) -> list[dict]:
     rows = []
     with open(path, encoding="utf-8") as fh:
-        for _ in range(4):
-            next(fh)
+        first = fh.readline()
+        if first.startswith("---"):      # disclaimer present: skip 3 more lines
+            for _ in range(3):
+                next(fh)
+        else:
+            fh.seek(0)  # no disclaimer: reset to start of file
         reader = csv.reader(fh, delimiter="\t")
         for row in reader:
             if len(row) < 5:
