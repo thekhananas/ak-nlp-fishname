@@ -91,7 +91,7 @@ python3 eda.py
 In a new Colab notebook (Runtime → T4 GPU):
 
 ```python
-!git clone https://github.com/anaskhan04/ak-nlp-fishname.git
+!git clone https://github.com/thekhananas/ak-nlp-fishname.git
 %cd ak-nlp-fishname
 !pip install -r BestModel/requirements.txt -q
 
