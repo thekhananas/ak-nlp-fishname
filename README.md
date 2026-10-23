@@ -1,5 +1,7 @@
 # NLP Coursework 2026 — PCL Detection
 
+**Project showcase:** [View the website source](docs/index.html) · [GitHub Pages setup](#publish-the-project-showcase)
+
 **Course:** 70016 Natural Language Processing — Imperial College London
 **Leaderboard Name:** ak7025
 **Deadline:** Wednesday, 4th March 2026, 7:00 PM
@@ -178,3 +180,38 @@ python3 error_analysis.py
 > *Don't Patronize Me! An Annotated Dataset with Patronising and Condescending
 > Language towards Vulnerable Communities.*
 > Proceedings of COLING 2020, pp. 5891–5902.
+
+---
+
+## Publish the project showcase
+
+The recruiter-facing website lives in `docs/`. It uses plain HTML, CSS, and JavaScript with system fonts, no build step, and no external runtime dependencies. It presents the reported internal development results, explains four engineering decisions, and links directly to supporting code. The two reading examples are authored illustrations, not live model predictions.
+
+### Preview locally
+
+From the repository root:
+
+```bash
+python3 -m http.server 8080 --directory docs
+```
+
+Open <http://localhost:8080>. Press Ctrl+C to stop the server.
+
+### Deploy with GitHub Pages
+
+1. Commit and push `docs/`, `.github/workflows/pages.yml`, and this README to `main`.
+2. In the GitHub repository, open **Settings → Pages → Build and deployment → Source** and select **GitHub Actions**.
+3. Open **Actions → Deploy project showcase to GitHub Pages → Run workflow**. Future changes to `docs/` on `main` deploy automatically.
+4. Once the workflow succeeds, open the URL in its `github-pages` environment. The expected project URL is <https://thekhananas.github.io/ak-nlp-fishname/>.
+5. Add that URL to the repository’s **About → Website** field so recruiters can find it from GitHub.
+
+The workflow publishes only `docs/`; datasets, prediction files, and model code are accessed through GitHub links. See [GitHub’s custom Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+
+### Make changes
+
+- `docs/index.html`: project copy, reported metrics, and evidence links. Keep evaluation split and threshold-selection caveats alongside results.
+- `docs/styles.css`: white background, muted grays, restrained green highlights, responsive layouts, keyboard focus styles, and reduced-motion support.
+- `docs/script.js`: the two illustrative reading examples. Update their initial HTML fallback too when changing the default example.
+- `.github/workflows/pages.yml`: automated deployment configuration.
+
+The visual hierarchy supports a quick scan: **task → result → engineering choices → evidence**. Baseline details are expandable, descriptive navigation goes directly to sections, and every evidence row opens the relevant repository artifact. Error analysis is labeled as the TF-IDF baseline analysis, matching its implementation.

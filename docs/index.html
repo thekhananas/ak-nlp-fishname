@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <title>Anas Khan — Patronising Language Detection (NLP)</title>
+    <meta name="description" content="Detecting patronising and condescending language toward vulnerable communities with RoBERTa-large by Anas Khan (Imperial College London).">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+    <!-- Editorial Typography: Newsreader (Editorial Serif) + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <main class="content" id="top">
+
+        <!-- Top Header & Bio -->
+        <div class="info">
+            <div class="namewrap">
+                <p class="name">Anas Khan</p>
+                <p class="role">Natural Language Processing • Imperial College London</p>
+            </div>
+
+            <p class="bio">
+                Graduate engineer at Imperial College London (COMP70016). I fine-tuned a context-conditioned RoBERTa-large classifier to detect subtle patronising and condescending language (PCL) toward vulnerable communities in news media.
+            </p>
+
+            <div class="links">
+                <a class="link" href="https://github.com/thekhananas/ak-nlp-fishname" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <p>/</p>
+                <a class="link" href="https://github.com/thekhananas/ak-nlp-fishname/blob/main/BestModel/train.py" target="_blank" rel="noopener noreferrer">Training Pipeline</a>
+                <p>/</p>
+                <a class="link" href="https://github.com/thekhananas/ak-nlp-fishname/blob/main/eda.py" target="_blank" rel="noopener noreferrer">EDA</a>
+                <p>/</p>
+                <a class="link" href="https://github.com/thekhananas/ak-nlp-fishname/blob/main/error_analysis.py" target="_blank" rel="noopener noreferrer">Error Analysis</a>
+                <p>/</p>
+                <a class="link" href="https://github.com/thekhananas/ak-nlp-fishname/blob/main/test.txt" target="_blank" rel="noopener noreferrer">Predictions</a>
+            </div>
+        </div>
+
+        <!-- Work Showcase -->
+        <div class="work">
+
+            <!-- Case 01: Interactive Framing & Decision Inspector -->
+            <div class="project">
+                
+                <!-- Square Visual Aid (1:1 Aspect Ratio Live Unit) -->
+                <div class="projectMedia">
+                    <div class="liveUnit squareBox">
+                        
+                        <div class="unitTopBar">
+                            <span class="unitKicker mono">Interactive Framing Specimen</span>
+                            <div class="switchGroup mono" role="group" aria-label="Select framing example">
+                                <button type="button" class="switchBtn" data-example="saviour" aria-pressed="true">Saviour (PCL)</button>
+                                <button type="button" class="switchBtn" data-example="agency" aria-pressed="false">Agency (No-PCL)</button>
+                                <button type="button" class="switchBtn" data-example="crisis" aria-pressed="false">Crisis (No-PCL)</button>
+                            </div>
+                        </div>
+
+                        <!-- Conditioned Input & Highlighted Quote -->
+                        <div class="specimenStage" aria-live="polite">
+                            <div class="specimenHeader">
+                                <code class="prefixTag mono" id="example-prefix">Community: poor families</code>
+                                <span class="goldBadge mono" id="example-gold">Gold Label: PCL (1)</span>
+                            </div>
+                            <blockquote class="specimenQuote" id="example-text">
+                                “<mark>These poor people</mark> have so little, yet <mark>they still manage to smile.</mark>”
+                            </blockquote>
+                            <p class="specimenNote" id="example-explanation">
+                                Pity frames the community as helpless objects of sympathy. Surface bag-of-words misses the condescension; self-attention captures the saviour tone.
+                            </p>
+                        </div>
+
+                        <!-- Live Model Probability Comparison vs Threshold τ = 0.77 -->
+                        <div class="scoreCompare">
+                            <div class="scoreHeader mono">
+                                <span>MODEL PROBABILITY P(PCL = 1)</span>
+                                <span class="tauMarkerLabel">DECISION BOUNDARY τ = 0.77</span>
+                            </div>
+
+                            <div class="gaugeRow">
+                                <span class="gaugeName mono">TF-IDF + LR</span>
+                                <div class="gaugeTrack">
+                                    <div class="gaugeFill gaugeMuted" id="tfidf-bar" style="width: 34%;"></div>
+                                    <div class="tauLine" style="left: 77%;" title="Threshold τ = 0.77"></div>
+                                </div>
+                                <span class="gaugeVerdict mono" id="tfidf-verdict">0.34 • Missed (FN)</span>
+                            </div>
+
+                            <div class="gaugeRow">
+                                <span class="gaugeName mono highlightVal">RoBERTa-large</span>
+                                <div class="gaugeTrack">
+                                    <div class="gaugeFill gaugePrimary" id="roberta-bar" style="width: 89%;"></div>
+                                    <div class="tauLine" style="left: 77%;" title="Threshold τ = 0.77"></div>
+                                </div>
+                                <span class="gaugeVerdict mono highlightVal" id="roberta-verdict">0.89 • Caught (TP)</span>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Summary Strip -->
+                        <div class="unitBottomBar">
+                            <div class="deltaTrack">
+                                <span class="deltaLabel mono">SemEval Base</span>
+                                <div class="trackBg"><div class="trackFill fillSlow" style="width: 79.1%;"></div></div>
+                                <span class="deltaVal mono">0.4800 F1</span>
+                            </div>
+                            <div class="deltaTrack">
+                                <span class="deltaLabel mono">Ours (Large)</span>
+                                <div class="trackBg"><div class="trackFill fillFast" style="width: 100%;"></div></div>
+                                <span class="deltaVal mono highlightVal">0.6067 F1 (+12.7 pts)</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="projectInfo">
+                    <p class="projectDates">SemEval-2022 Task 4 • 10,469 News Paragraphs • 10 Vulnerable Communities</p>
+                    <p class="projectTitle">
+                        <a class="titleLink" href="https://github.com/thekhananas/ak-nlp-fishname/blob/main/BestModel/train.py" target="_blank" rel="noopener noreferrer">
+                            Detecting Condescension Disguised as Kindness ↗
+                        </a>
+                    </p>
+                    <p class="projectDescription">
+                        Patronising language rarely uses explicit slurs; it hides in sympathetic or saviour framing. Prepending <code>Community: {keyword}</code> before tokenisation gives the 24-layer <code>roberta-large</code> encoder explicit target context to separate genuine reporting from subtle condescension.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Case 02: 9.54:1 Class Imbalance & Threshold Calibration -->
+            <div class="project">
+                
+                <!-- Square Visual Aid (1:1 Aspect Ratio Live Unit) -->
+                <div class="projectMedia">
+                    <div class="liveUnit squareBox">
+                        
+                        <div class="unitTopBar">
+                            <span class="unitKicker mono">Imbalance &amp; Boundary Calibration</span>
+                            <span class="unitPill mono">70% Fewer False Alarms</span>
+                        </div>
+
+                        <!-- Part A: 10,469 Corpus Severity Distribution -->
+                        <div class="imbalanceBox">
+                            <div class="imbalanceMeta mono">
+                                <span>CORPUS DISTRIBUTION (10,469 PARAGRAPHS)</span>
+                                <span class="highlightLabel">9.54 : 1 IMBALANCE</span>
+                            </div>
+                            <div class="imbalanceSummary mono">
+                                <span class="summaryNeg"><strong>90.5%</strong> No-PCL (9,476)</span>
+                                <span class="summaryPos"><strong>9.5%</strong> Positive PCL (993)</span>
+                            </div>
+                            <div class="PropBar" role="img" aria-label="Corpus distribution: 81.5% severity 0, 9.0% severity 1 (90.5% No-PCL), and 9.5% severity 2 to 4 (Positive PCL)">
+                                <div class="propSeg segNeg0" style="width: 81.5%;" title="Severity 0 (No-PCL): 8,529 paragraphs (81.5%)"></div>
+                                <div class="propSeg segNeg1" style="width: 9.0%;" title="Severity 1 (Borderline No-PCL): 947 paragraphs (9.0%)"></div>
+                                <div class="propSeg segPos" style="width: 9.5%;" title="Severity 2–4 (Positive PCL): 993 paragraphs (9.5%)"></div>
+                            </div>
+                            <div class="imbalanceLegend mono">
+                                <span><i class="dotLegend dotNeg0"></i>0: Explicit No-PCL (81.5%)</span>
+                                <span><i class="dotLegend dotNeg1"></i>1: Borderline (9.0%)</span>
+                                <span class="legendPos"><i class="dotLegend dotPos"></i>2–4: PCL (9.5%)</span>
+                            </div>
+                        </div>
+
+                        <!-- Part B: Threshold Sweep Curve SVG -->
+                        <div class="svgStage">
+                            <svg class="animSvg" viewBox="0 0 460 132" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Validation F1 curve across threshold tau from 0.10 to 0.90 peaking at tau equals 0.77">
+                                <rect x="6" y="4" width="448" height="122" rx="6" class="laneBg laneNaive" />
+                                <text x="20" y="22" class="svgLabel mono">VALIDATION THRESHOLD SWEEP τ ∈ [0.10, 0.90]</text>
+                                <text x="440" y="22" class="svgTime mono fastTime">PEAK F1 = 0.6067</text>
+
+                                <!-- Grid lines -->
+                                <line x1="28" y1="44" x2="432" y2="44" stroke="#E5E7EB" stroke-width="1" />
+                                <line x1="28" y1="70" x2="432" y2="70" stroke="#E5E7EB" stroke-width="1" />
+                                <line x1="28" y1="96" x2="432" y2="96" stroke="#D1D5DB" stroke-width="1" />
+
+                                <!-- Precision Curve (dashed emerald) -->
+                                <path d="M 28 90 Q 150 80, 215 62 T 350 38 L 432 28" stroke="#6EE7B7" stroke-width="1.5" stroke-dasharray="3 3" fill="none" />
+
+                                <!-- F1 Curve (solid emerald + shaded area) -->
+                                <path d="M 28 88 Q 140 76, 215 58 T 350 36 Q 395 40, 432 76 L 432 96 L 28 96 Z" fill="rgba(5, 150, 105, 0.09)" />
+                                <path d="M 28 88 Q 140 76, 215 58 T 350 36 Q 395 40, 432 76" stroke="#059669" stroke-width="2.2" fill="none" />
+
+                                <!-- Uncalibrated Default τ = 0.50 -->
+                                <line x1="215" y1="44" x2="215" y2="96" stroke="#9CA3AF" stroke-dasharray="2 2" />
+                                <circle cx="215" cy="58" r="3.5" class="dotSlow" />
+                                <text x="205" y="55" class="svgCalloutMuted mono">Excess FP</text>
+
+                                <!-- Calibrated Peak τ = 0.77 -->
+                                <line x1="350" y1="28" x2="350" y2="96" stroke="#059669" stroke-width="1.5" stroke-dasharray="2 2" />
+                                <circle cx="350" cy="36" r="4.5" class="pulseDot dotFast" />
+                                <text x="340" y="34" class="svgCalloutFast mono">0.69 P • 0.54 R</text>
+
+                                <!-- Non-overlapping X-Axis Tick Labels -->
+                                <text x="28" y="113" class="axisTickStart mono">τ = 0.10</text>
+                                <text x="215" y="113" class="nodeText mono">Default τ = 0.50</text>
+                                <text x="350" y="113" class="nodeSubText mono boldText">Calibrated τ = 0.77</text>
+                            </svg>
+                        </div>
+
+                        <!-- Bottom Comparative False Alarm Reduction -->
+                        <div class="unitBottomBar">
+                            <div class="deltaTrack">
+                                <span class="deltaLabel mono">TF-IDF Baseline</span>
+                                <div class="trackBg"><div class="trackFill fillSlow" style="width: 100%;"></div></div>
+                                <span class="deltaVal mono">81 False Positives</span>
+                            </div>
+                            <div class="deltaTrack">
+                                <span class="deltaLabel mono">RoBERTa (τ=0.77)</span>
+                                <div class="trackBg"><div class="trackFill fillFast" style="width: 29.6%;"></div></div>
+                                <span class="deltaVal mono highlightVal">24 False Positives</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="projectInfo">
+                    <p class="projectDates">pos_weight = 9.54 • Threshold Sweep τ ∈ [0.10, 0.90] • Optimal τ = 0.77</p>
+                    <p class="projectTitle">
+                        <a class="titleLink" href="https://github.com/thekhananas/ak-nlp-fishname/blob/main/eda.py" target="_blank" rel="noopener noreferrer">
+                            Countering 9.54:1 Class Imbalance Without Precision Collapse ↗
+                        </a>
+                    </p>
+                    <p class="projectDescription">
+                        Weighting positive examples in <code>BCEWithLogitsLoss</code> prevents majority-class collapse but inflates raw probabilities. Calibrating the decision boundary to <code>τ = 0.77</code> cuts validation false positives from <code>81</code> to <code>24</code> while preserving <code>54%</code> recall.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Case 03: Empirical Validation Matrix & Confusion Breakdown -->
+            <div class="project">
+                
+                <!-- Square Visual Aid for Performance Metrics -->
+                <div class="projectMedia">
+                    <div class="liveUnit squareBox">
+                        
+                        <div class="unitTopBar">
+                            <span class="unitKicker mono">Empirical Evaluation (N = 1,047 Dev)</span>
+                            <span class="unitPill mono">0.6067 Positive F1</span>
+                        </div>
+
+                        <!-- 2x2 Confusion Matrix Strip for RoBERTa-large (dev.txt) -->
+                        <div class="cmGrid" role="region" aria-label="Validation confusion matrix on 1,047 paragraphs">
+                            <div class="cmCell cmMuted">
+                                <span class="cmTag mono">TRUE NEGATIVE (TN)</span>
+                                <strong class="cmNum mono">923</strong>
+                                <span class="cmSub mono">88.2% • Correct No-PCL</span>
+                            </div>
+                            <div class="cmCell cmHighlight">
+                                <span class="cmTag mono">TRUE POSITIVE (TP)</span>
+                                <strong class="cmNum mono highlightVal">54</strong>
+                                <span class="cmSub mono">54.0% Recall on PCL</span>
+                            </div>
+                            <div class="cmCell cmHighlight">
+                                <span class="cmTag mono">FALSE POSITIVE (FP)</span>
+                                <strong class="cmNum mono highlightVal">24</strong>
+                                <span class="cmSub mono">69.2% Precision on PCL</span>
+                            </div>
+                            <div class="cmCell cmMuted">
+                                <span class="cmTag mono">FALSE NEGATIVE (FN)</span>
+                                <strong class="cmNum mono">46</strong>
+                                <span class="cmSub mono">Implicit / subtle tone</span>
+                            </div>
+                        </div>
+
+                        <!-- Model Comparison Matrix -->
+                        <div class="summaryMatrix">
+                            <div class="matrixRow matrixHead">
+                                <span>Model Configuration</span>
+                                <span>Precision</span>
+                                <span>Recall</span>
+                                <span>Dev F1</span>
+                            </div>
+
+                            <div class="matrixRow matrixHighlight">
+                                <span>RoBERTa-large (C1–C4, τ=0.77)</span>
+                                <span class="mono">0.69</span>
+                                <span class="mono">0.54</span>
+                                <span class="mono highlightVal">0.6067</span>
+                            </div>
+
+                            <div class="matrixRow matrixMuted">
+                                <span>SemEval Organiser RoBERTa-base</span>
+                                <span class="mono">--</span>
+                                <span class="mono">--</span>
+                                <span class="mono">0.4800</span>
+                            </div>
+
+                            <div class="matrixRow matrixMuted">
+                                <span>TF-IDF + Logistic Reg. (C2+C3)</span>
+                                <span class="mono">0.40</span>
+                                <span class="mono">0.54</span>
+                                <span class="mono">0.4600</span>
+                            </div>
+                        </div>
+
+                        <div class="matrixNote mono">
+                            <span>Colab T4 FP16 • DeBERTa-v3 ablated (cuBLAS GEMM error) • 3,832 test.txt preds</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="projectInfo">
+                    <p class="projectDates">Seeded 90/10 Split • 1,047 Dev Lines (dev.txt) • 3,832 Test Lines (test.txt)</p>
+                    <p class="projectTitle">
+                        <a class="titleLink" href="https://github.com/thekhananas/ak-nlp-fishname/blob/main/error_analysis.py" target="_blank" rel="noopener noreferrer">
+                            Validation Confusion Matrix &amp; Ablation Summary ↗
+                        </a>
+                    </p>
+                    <p class="projectDescription">
+                        Both models detect 54 of the 100 positive PCL paragraphs on the internal holdout, but <code>roberta-large</code> eliminates more than two-thirds of false alarms compared to the TF-IDF baseline (<code>24 FP</code> vs <code>81 FP</code>), driving a +14.7 point F1 gain.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Back to top -->
+            <a class="links bottom" href="#top">Back to top ↑</a>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

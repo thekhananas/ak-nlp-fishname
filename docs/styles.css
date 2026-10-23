@@ -1,0 +1,788 @@
+/* ==========================================================================
+   Anas Khan — Applied NLP Showcase
+   ========================================================================== */
+
+html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #ffffff;
+    color: #4D4D4D;
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+    font-size: 1.125rem;
+    line-height: 1.44;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 6.25rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background-color: #e5e5e5;
+    color: #000000;
+}
+
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 37.75rem; /* 604px */
+    padding: 1.25rem 1.25rem 5rem 1.25rem;
+    gap: 3.5rem;
+}
+
+p, blockquote {
+    text-wrap: pretty;
+}
+
+/* Info / Bio Block */
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.namewrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.125rem;
+}
+
+.name {
+    color: #000000;
+    font-size: 1.375rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+.role {
+    color: #737373;
+    font-size: 0.90625rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: -0.02em;
+}
+
+.bio {
+    color: #4D4D4D;
+}
+
+a {
+    color: #4D4D4D;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #000000;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid #059669;
+    outline-offset: 3px;
+}
+
+/* Monospace Links Row */
+.links {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8125rem;
+    line-height: 1.38;
+    letter-spacing: 0.39px;
+    text-transform: uppercase;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    color: #8C8C8C;
+}
+
+.links a {
+    color: #4D4D4D;
+}
+
+.links a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+/* Work Showcase */
+.work {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.project {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Square Dimension Media Container (1:1 Aspect Ratio) */
+.projectMedia {
+    position: relative;
+    background-color: #FAFAFB;
+    border: 1px solid #EAEAEA;
+    border-radius: 12px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+}
+
+/* Live Unit Container */
+.liveUnit.squareBox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.unitTopBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid #EAEAEA;
+}
+
+.unitKicker {
+    font-size: 0.6875rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #8C8C8C;
+}
+
+.unitPill {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #059669;
+    background-color: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Square 01: Interactive Framing Specimen + Live Probability Gauges */
+.switchGroup {
+    display: inline-flex;
+    background-color: #EFEFF1;
+    padding: 2px;
+    border-radius: 5px;
+    gap: 2px;
+}
+
+.switchBtn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.625rem;
+    font-weight: 500;
+    border: 0;
+    background: transparent;
+    color: #6B7280;
+    padding: 0.2rem 0.45rem;
+    border-radius: 3.5px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.switchBtn[aria-pressed="true"] {
+    background-color: #ECFDF5;
+    color: #059669;
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.specimenStage {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 1.125rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    margin: auto 0;
+}
+
+.specimenHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.prefixTag {
+    font-size: 0.6875rem;
+    background-color: #F3F4F6;
+    color: #374151;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    border: 1px solid #E5E7EB;
+}
+
+.goldBadge {
+    font-size: 0.65625rem;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: #059669;
+    font-weight: 600;
+}
+
+.specimenQuote {
+    color: #000000;
+    font-size: 1.25rem;
+    line-height: 1.42;
+}
+
+.specimenQuote mark {
+    background-color: #DCFCE7;
+    color: #065F46;
+    padding: 0 0.2em;
+    border-radius: 3px;
+}
+
+.specimenNote {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    line-height: 1.48;
+    color: #6B7280;
+}
+
+/* Model Probability Comparison Box */
+.scoreCompare {
+    background-color: #F3F4F6;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 0.75rem 0.95rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: auto;
+}
+
+.scoreHeader {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6rem;
+    letter-spacing: 0.4px;
+    color: #6B7280;
+}
+
+.tauMarkerLabel {
+    color: #059669;
+    font-weight: 600;
+}
+
+.gaugeRow {
+    display: grid;
+    grid-template-columns: 5.75rem 1fr 7.5rem;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+.gaugeName {
+    font-size: 0.65625rem;
+    color: #6B7280;
+}
+
+.gaugeTrack {
+    position: relative;
+    height: 9px;
+    background-color: #E5E7EB;
+    border-radius: 4px;
+}
+
+.gaugeFill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gaugeMuted {
+    background-color: #9CA3AF;
+}
+
+.gaugePrimary {
+    background-color: #059669;
+}
+
+.tauLine {
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    width: 2px;
+    background-color: #065F46;
+    border-radius: 1px;
+}
+
+.gaugeVerdict {
+    text-align: right;
+    font-size: 0.65625rem;
+    color: #4B5563;
+}
+
+/* Square 02: 9.54:1 Corpus Imbalance Mosaic */
+.imbalanceBox {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 0.875rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.imbalanceMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.4px;
+    color: #6B7280;
+}
+
+.imbalanceSummary {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+}
+
+.summaryNeg {
+    color: #374151;
+}
+
+.summaryNeg strong {
+    color: #111827;
+    font-weight: 600;
+}
+
+.summaryPos {
+    color: #059669;
+    text-align: right;
+}
+
+.summaryPos strong {
+    font-weight: 600;
+}
+
+.PropBar {
+    display: flex;
+    width: 100%;
+    height: 0.875rem;
+    border-radius: 4px;
+    overflow: hidden;
+    gap: 3px;
+}
+
+.propSeg {
+    height: 100%;
+    border-radius: 2px;
+}
+
+.segNeg0 {
+    background-color: #E5E7EB;
+}
+
+.segNeg1 {
+    background-color: #CBD5E1;
+}
+
+.segPos {
+    background-color: #059669;
+}
+
+.imbalanceLegend {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.375rem 0.75rem;
+    font-size: 0.625rem;
+    color: #6B7280;
+}
+
+.legendPos {
+    color: #065F46;
+    font-weight: 500;
+}
+
+.dotLegend {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.dotNeg0 {
+    background-color: #E5E7EB;
+    border: 1px solid #D1D5DB;
+}
+
+.dotNeg1 {
+    background-color: #CBD5E1;
+}
+
+.dotPos {
+    background-color: #059669;
+}
+
+/* SVG Stage */
+.svgStage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: auto 0;
+}
+
+.animSvg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* SVG Typography & Styling */
+.svgLabel {
+    font-size: 9px;
+    letter-spacing: 0.4px;
+    fill: #6B7280;
+    font-weight: 500;
+}
+
+.highlightLabel {
+    color: #059669;
+    fill: #059669;
+    font-weight: 600;
+}
+
+.svgTime {
+    font-size: 9.5px;
+    text-anchor: end;
+}
+
+.fastTime {
+    fill: #059669;
+    font-weight: 600;
+}
+
+.laneBg {
+    stroke-width: 1;
+}
+
+.laneNaive {
+    fill: #F3F4F6;
+    stroke: #E5E7EB;
+}
+
+.nodeText {
+    font-size: 9px;
+    text-anchor: middle;
+    fill: #4B5563;
+}
+
+.nodeSubText {
+    font-size: 9px;
+    text-anchor: middle;
+    fill: #059669;
+}
+
+.axisTickStart {
+    font-size: 8.5px;
+    text-anchor: start;
+    fill: #9CA3AF;
+}
+
+.svgCalloutMuted {
+    font-size: 8.5px;
+    text-anchor: end;
+    fill: #6B7280;
+}
+
+.svgCalloutFast {
+    font-size: 8.5px;
+    text-anchor: end;
+    fill: #059669;
+    font-weight: 600;
+}
+
+.boldText {
+    font-weight: 600;
+    fill: #065F46;
+}
+
+.pulseDot {
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.15));
+}
+
+.dotSlow {
+    fill: #9CA3AF;
+}
+
+.dotFast {
+    fill: #059669;
+}
+
+/* Bottom Comparative Delta Bars */
+.unitBottomBar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4375rem;
+    padding-top: 0.625rem;
+    border-top: 1px solid #EAEAEA;
+}
+
+.deltaTrack {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr 7.75rem;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.6875rem;
+}
+
+.deltaLabel {
+    color: #6B7280;
+    font-size: 0.65625rem;
+}
+
+.trackBg {
+    height: 7px;
+    background-color: #E5E7EB;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.trackFill {
+    height: 100%;
+    border-radius: 4px;
+}
+
+.fillSlow {
+    background-color: #9CA3AF;
+}
+
+.fillFast {
+    background-color: #059669;
+    animation: barPulse 2.5s infinite ease-in-out;
+}
+
+@keyframes barPulse {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 1; filter: brightness(1.15); }
+}
+
+.deltaVal {
+    text-align: right;
+    font-size: 0.6875rem;
+    color: #374151;
+}
+
+.highlightVal {
+    color: #059669 !important;
+    font-weight: 600;
+}
+
+/* Square 03: 2x2 Confusion Matrix + Model Comparison Matrix */
+.cmGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.cmCell {
+    border-radius: 7px;
+    padding: 0.625rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.cmMuted {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+}
+
+.cmHighlight {
+    background-color: #F0FDF4;
+    border: 1px solid #BBF7D0;
+}
+
+.cmTag {
+    font-size: 0.59375rem;
+    letter-spacing: 0.4px;
+    color: #6B7280;
+}
+
+.cmNum {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.2;
+}
+
+.cmSub {
+    font-size: 0.625rem;
+    color: #6B7280;
+}
+
+.summaryMatrix {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3125rem;
+    margin: auto 0;
+}
+
+.matrixRow {
+    display: grid;
+    grid-template-columns: 2.2fr 0.9fr 0.9fr 0.9fr;
+    padding: 0.45rem 0.65rem;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    align-items: center;
+}
+
+.matrixHead {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: #8C8C8C;
+    border-bottom: 1px solid #E5E5E8;
+    padding-bottom: 0.3rem;
+}
+
+.matrixHighlight {
+    background-color: #F0FDF4;
+    border: 1px solid #DCFCE7;
+    color: #000000;
+    font-weight: 500;
+}
+
+.matrixMuted {
+    color: #8C8C8C;
+    font-size: 0.75rem;
+}
+
+.matrixNote {
+    padding-top: 0.625rem;
+    border-top: 1px solid #EAEAEA;
+    font-size: 0.65625rem;
+    color: #6B7280;
+    text-align: center;
+}
+
+/* Project Info Below Square */
+.projectInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.projectDates {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    letter-spacing: 0.39px;
+    text-transform: uppercase;
+    color: #737373;
+}
+
+.projectTitle {
+    color: #000000;
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-top: 0.125rem;
+    text-wrap: balance;
+}
+
+.titleLink {
+    color: #000000;
+}
+
+.titleLink:hover {
+    text-decoration: underline;
+}
+
+.projectDescription {
+    color: #4D4D4D;
+    font-size: 1.03125rem;
+    line-height: 1.45;
+}
+
+.projectDescription code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8125rem;
+    padding: 1px 4px;
+    background-color: #F0F0F2;
+    border-radius: 3px;
+    color: #1A1A1A;
+}
+
+.mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Back to Top */
+.bottom {
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #EBEBED;
+    display: inline-block;
+    color: #737373;
+}
+
+/* Responsive */
+@media screen and (max-width: 640px) {
+    body {
+        padding-top: 3rem;
+        font-size: 1.0625rem;
+    }
+
+    .content {
+        gap: 2.75rem;
+        padding: 1rem 1rem 4rem 1rem;
+    }
+
+    .projectMedia {
+        padding: 0.875rem;
+        aspect-ratio: auto;
+        min-height: 23rem;
+    }
+
+    .liveUnit.squareBox {
+        gap: 0.875rem;
+    }
+
+    .gaugeRow,
+    .deltaTrack {
+        grid-template-columns: 5.25rem 1fr 6.75rem;
+    }
+
+    .matrixRow {
+        font-size: 0.75rem;
+        padding: 0.45rem 0.375rem;
+    }
+}
