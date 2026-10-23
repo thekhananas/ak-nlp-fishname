@@ -1,6 +1,6 @@
 # NLP Coursework 2026 — PCL Detection
 
-**Project showcase:** [View the website source](docs/index.html) · [GitHub Pages setup](#publish-the-project-showcase)
+> **Project showcase:** [View the website](https://thekhananas.github.io/ak-nlp-fishname/) 
 
 **Course:** 70016 Natural Language Processing — Imperial College London
 **Leaderboard Name:** ak7025
@@ -185,7 +185,7 @@ python3 error_analysis.py
 
 ## Publish the project showcase
 
-The recruiter-facing website lives in `docs/`. It uses plain HTML, CSS, and JavaScript with system fonts, no build step, and no external runtime dependencies. It presents the reported internal development results, explains four engineering decisions, and links directly to supporting code. The two reading examples are authored illustrations, not live model predictions.
+The visual showcase website lives in `docs/`. It presents the reported internal development results and a brief about the four engineering decisions. 
 
 ### Preview locally
 
